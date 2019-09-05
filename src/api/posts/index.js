@@ -1,20 +1,16 @@
 const Router = require('koa-router');
+const postsCtrl = require('./posts.ctrl');
 
 const posts = new Router();
 
-const printInfo = (ctx) => {
-  ctx.body = {
-    method: ctx.method,
-    path: ctx.path,
-    params: ctx.params,
-  };
-};
+// eslint-disable-next-line object-curly-newline
+const { list, write, read, remove, replace, update } = postsCtrl;
 
-posts.get('/', printInfo);
-posts.post('/', printInfo);
-posts.get('/:id', printInfo);
-posts.delete('/:id', printInfo);
-posts.put('/:id', printInfo);
-posts.patch('/:id', printInfo);
+posts.get('/', list);
+posts.post('/', write);
+posts.get('/:id', read);
+posts.delete('/:id', remove);
+posts.put('/:id', replace);
+posts.patch('/:id', update);
 
 module.exports = posts;
